@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+//leaving so soon???????????
 public class MenuAppearScript : MonoBehaviour
 {
     public GameObject menu;
