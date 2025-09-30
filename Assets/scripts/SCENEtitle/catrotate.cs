@@ -13,7 +13,7 @@ public class catrotate : MonoBehaviour
 
     void Start()
     {
-
+        //transform.position on objectin nykyinen asento
         originalX = transform.position.x;
         originalZ = transform.position.z;
 
@@ -24,9 +24,10 @@ public class catrotate : MonoBehaviour
 
     void Update()
     {
+
+
+        // mee alas pehmeästi (moveTowards)
         
-        
-        // mee alas
         if (movingToEnd)
         {
             transform.position = Vector3.MoveTowards(transform.position, endPos, moveSpeed * Time.deltaTime);

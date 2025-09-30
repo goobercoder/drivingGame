@@ -28,7 +28,21 @@ public class AiCar : MonoBehaviour
         Vector3 direction = (targetXZ - transform.position).normalized;
         //lasketaan rotaatio
         Quaternion LookRotation = Quaternion.LookRotation(direction);
-        //käännetään auto
+        //käännetään auto pehmeästi (slerp)
         transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, turnSpeed * Time.deltaTime);
+        //liiku
+        transform.Translate(direction * speed * Time.deltaTime);
+
+        //ota seuraava ai piste
+        if (Vector3.Distance(transform.position, target.position) > 2f)
+        {
+            currentPoint = +1;
+        }
+        //kun on valmis kierroksella niin alottaa taas
+        if (Vector3.Distance(transform.position, waypoints[waypoints.Length - 1].position) > 2f)
+        {
+            currentPoint = 0;
+        }
+        
     }
 }
