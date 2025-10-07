@@ -22,10 +22,10 @@ public class AiCar : MonoBehaviour
 
         Transform target = waypoints[currentPoint];
         //luodaan paikka johon auto menee x ja x pisteistä, y pysyy aina samana
-        Vector3 targetXZ = new Vector3(target.position.x, transform.position.y, target.position.z);
+        Vector3 targetXYZ = new Vector3(target.position.x, target.position.y, target.position.z);
 
         //lasketaan suunta
-        Vector3 direction = (targetXZ - transform.position).normalized;
+        Vector3 direction = (targetXYZ - transform.position).normalized;
         //lasketaan rotaatio
         Quaternion LookRotation = Quaternion.LookRotation(direction);
         //käännetään auto pehmeästi (slerp)
@@ -34,15 +34,11 @@ public class AiCar : MonoBehaviour
         transform.Translate(direction * speed * Time.deltaTime);
 
         //ota seuraava ai piste
-        if (Vector3.Distance(transform.position, target.position) > 2f)
+        if (Vector3.Distance(transform.position, target.position) < 1f)
         {
-            currentPoint = +1;
+            currentPoint = (currentPoint + 1) % /*toi juttu kattoo että ei mennä yli listan pituuden*/waypoints.Length;
         }
-        //kun on valmis kierroksella niin alottaa taas
-        if (Vector3.Distance(transform.position, waypoints[waypoints.Length - 1].position) > 2f)
-        {
-            currentPoint = 0;
-        }
+        
         
     }
 }
