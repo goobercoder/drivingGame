@@ -15,7 +15,7 @@ public class AiCar : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    // Update is called once per frame  
     void Update()
     {
         //haetaan seuraava piste
@@ -31,7 +31,7 @@ public class AiCar : MonoBehaviour
         //käännetään auto pehmeästi (slerp)
         transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, turnSpeed * Time.deltaTime);
         //liiku
-        transform.Translate(direction * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
         //ota seuraava ai piste
         if (Vector3.Distance(transform.position, target.position) < 1f)
