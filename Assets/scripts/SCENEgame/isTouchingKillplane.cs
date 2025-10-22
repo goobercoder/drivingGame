@@ -18,6 +18,8 @@ public class PlaneCollision : MonoBehaviour
 
                 Thread. Sleep(3000);
 
+                SceneManager.LoadScene(sceneBuildIndex: 0);
+
                 
 
             }
@@ -29,6 +31,8 @@ public class PlaneCollision : MonoBehaviour
                 //make gui element for losing
 
                 Thread. Sleep(3000);
+
+                SceneManager.LoadScene(sceneBuildIndex: 0);
 
             }
         }
