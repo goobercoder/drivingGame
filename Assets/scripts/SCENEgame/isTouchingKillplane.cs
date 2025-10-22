@@ -11,18 +11,24 @@ public class PlaneCollision : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("cat"))
             {
-                // Object A touches the plane
-                Debug.Log("Object A touched the plane");
+                
+                Debug.Log("cat touched the plane");
 
-                lost = true;
+                //make gui element for winning
+
+                Thread. Sleep(3000);
+
+                
 
             }
             if (collision.gameObject.CompareTag("cat (ai)"))
             {
 
-                Debug.Log("Object B touched the plane");
+                Debug.Log("ai cat touched the plane");
 
-                won = true;
+                //make gui element for losing
+
+                Thread. Sleep(3000);
 
             }
         }
