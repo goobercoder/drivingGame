@@ -6,7 +6,7 @@ public class checkpoint : MonoBehaviour
     private void OnTriggerEnter(Collider cat)
     {
         var id = cat.GetComponent<PlayerCarId>();
-        Debug.Log("ChP" + orderIndex + " " + id);
+        Debug.Log("Checkpoint: " + orderIndex + " detected " + id);
         var tarkastaja = cat.GetComponent<CheckPointTest>();
         tarkastaja.MarkTriggered(orderIndex);
     }

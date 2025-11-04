@@ -24,7 +24,7 @@ public class CheckPointTest : MonoBehaviour
         }
     }
 
-    public bool canWin()
+    public bool CanWin()
     {
         if (Index == Indexed)
         {
