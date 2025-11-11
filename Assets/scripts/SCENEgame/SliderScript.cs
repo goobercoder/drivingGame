@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI; // Required for UI components like Slider and Text
+using TMPro; // Required for TMP_Text
 
 public class SliderScript : MonoBehaviour
 {
     public Slider mySlider; 
-    public Text valueText;   
+    public TMP_Text valueText;
 
     void Start()
     {
@@ -13,7 +14,7 @@ public class SliderScript : MonoBehaviour
         
 
         // Set the initial value of the text (optional)
-        valueText.text = "Value: " + mySlider.value.ToString("F2");
+        valueText.text = mySlider.value.ToString("F2");
 
         // Add listener to update the Text when slider value changes
         mySlider.onValueChanged.AddListener(UpdateText);
@@ -22,7 +23,7 @@ public class SliderScript : MonoBehaviour
     void UpdateText(float value)
     {
         // Update the Text UI element to display the current value of the slider
-        valueText.text = "Value: " + value.ToString("F2"); // Optional formatting (2 decimal places)
+        valueText.text = value.ToString("F2"); // Optional formatting (2 decimal places)
     }
 
     void OnDestroy()

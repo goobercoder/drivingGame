@@ -5,6 +5,7 @@ public class CheckPointTest : MonoBehaviour
     public int Index;
     public bool[] triggered;
     public int Indexed;
+    public int laps = 1;
 
     private void Awake()
     {
@@ -14,6 +15,7 @@ public class CheckPointTest : MonoBehaviour
     {
         triggered = new bool[Index];
         Indexed = 0;
+        laps++;
     }
     public void MarkTriggered(int index)
     {

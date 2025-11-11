@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AiCar : MonoBehaviour
 {
@@ -8,16 +9,19 @@ public class AiCar : MonoBehaviour
     public float speed = 10f;
 
     public float turnSpeed = 5f;
+    public Slider mySlider; //get the speed slider
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+      
     }
 
     // Update is called once per frame  
     void Update()
     {
+        speed = mySlider.value;
+        turnSpeed = mySlider.value / 2;
         //haetaan seuraava piste
 
         Transform target = waypoints[currentPoint];
@@ -38,7 +42,8 @@ public class AiCar : MonoBehaviour
         {
             currentPoint = (currentPoint + 1) % /*toi juttu kattoo että ei mennä yli listan pituuden*/waypoints.Length;
         }
-        
-        
+
+
     }
+    
 }
