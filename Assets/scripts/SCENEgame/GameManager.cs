@@ -2,13 +2,15 @@ using UnityEngine;
 using UnityEngine.UI; // Required for UI components like Slider and Text
 using TMPro; // Required for TMP_Text
 
-public class UpdatelapsUi : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static UpdatelapsUi Instance;
+    public static GameManager Instance;
     public TMP_Text valueText;
 
+    public int lapsToWin = 3;
+
     [SerializeField] private CheckPointTest playerCT;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -18,10 +20,15 @@ public class UpdatelapsUi : MonoBehaviour
         }
         Instance = this;
     }
+    void Start()
+    {
+        lapsToWin = LapAmountScript.Instance.GetValue();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        valueText.text = "Laps: " + playerCT.laps.ToString() + "/3";
+        Debug.Log(lapsToWin);
+        valueText.text = "Laps: " + playerCT.laps.ToString() + "/" + lapsToWin.ToString();
     }
 }

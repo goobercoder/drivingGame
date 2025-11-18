@@ -6,7 +6,7 @@ public class LapAmountScript : MonoBehaviour
 {
     public static LapAmountScript Instance;
     public TMP_InputField inputField; // Assign in the Inspector
-    private int inputValue;
+    public int inputValue;
     void Awake()
     {
         // Ensure only one instance exists
@@ -20,6 +20,7 @@ public class LapAmountScript : MonoBehaviour
             Destroy(gameObject); // Destroy duplicates
             return;
         }
+
     }
 
     void Start()
@@ -55,6 +56,6 @@ public class LapAmountScript : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log(inputValue);
+        //Debug.Log(inputValue);
     }
 }
