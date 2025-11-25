@@ -41,10 +41,12 @@ public class tuomariorsmth : MonoBehaviour
         {
             winnerText.text = "Did u ate shit? idk lets find out: Nop u good boi";
             winnerText.color = Color.green;
+            WinManager.Instance.WinManagerFunc(true, true);
         }
         else{
             winnerText.text = "Did u ate shit? idk lets find out: Yuh uh u baad";
             winnerText.color = Color.red;
+            WinManager.Instance.WinManagerFunc(true, false);
         }
     }
 }

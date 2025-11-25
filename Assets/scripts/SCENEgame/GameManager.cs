@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(lapsToWin);
+        //Debug.Log(lapsToWin);
         valueText.text = "Laps: " + playerCT.laps.ToString() + "/" + lapsToWin.ToString();
     }
 }
