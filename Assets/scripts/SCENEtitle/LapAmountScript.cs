@@ -1,12 +1,13 @@
-using TMPro; 
+using TMPro;
 using UnityEngine;
-
 
 public class LapAmountScript : MonoBehaviour
 {
     public static LapAmountScript Instance;
-    public TMP_InputField inputField; // Assign in the Inspector
+    public string inputFieldObjectName = "InputFieldObjectName"; // Name of the TMP_InputField GameObject
+    public TMP_InputField inputField; // Reference to the TMP_InputField
     public int inputValue;
+
     void Awake()
     {
         // Ensure only one instance exists
@@ -21,12 +22,32 @@ public class LapAmountScript : MonoBehaviour
             return;
         }
 
+        
     }
 
     void Start()
+
     {
-        // Optional: add a listener that triggers whenever the user finishes editing
-        inputField.onEndEdit.AddListener(OnInputEndEdit);
+        // Find the TMP_InputField by name if it's not set in the inspector
+        if (inputField == null)
+        {
+            GameObject inputObject = GameObject.Find(inputFieldObjectName);
+            if (inputObject != null)
+            {
+                inputField = inputObject.GetComponent<TMP_InputField>();
+            }
+            else
+            {
+                Debug.LogWarning($"No TMP_InputField found with the name {inputFieldObjectName}.");
+            }
+        }
+        if (inputField != null)
+        {
+            // Add listener to trigger when the user finishes editing
+            inputField.onEndEdit.AddListener(OnInputEndEdit);
+        }
+
+        // Set default value for the input
         inputValue = 3;
     }
 
@@ -43,7 +64,7 @@ public class LapAmountScript : MonoBehaviour
         }
     }
 
-    // Optional: get the current int value from elsewhere
+    // Method to get the current input value
     public int GetValue()
     {
         return inputValue;
@@ -52,10 +73,15 @@ public class LapAmountScript : MonoBehaviour
     void OnDestroy()
     {
         // Clean up listeners to avoid memory leaks
-        inputField.onEndEdit.RemoveListener(OnInputEndEdit);
+        if (inputField != null)
+        {
+            inputField.onEndEdit.RemoveListener(OnInputEndEdit);
+        }
     }
+
     void Update()
     {
-        //Debug.Log(inputValue);
+        // Optional: Debug output
+        // Debug.Log(inputValue);
     }
 }

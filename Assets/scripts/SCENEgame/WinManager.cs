@@ -52,7 +52,7 @@ public class WinManager : MonoBehaviour
     private IEnumerator WaitAndReloadScene(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(0);  // Replace with the correct scene index
+        Application.Quit();  // Code dont work so this fix yay
     }
 }
 

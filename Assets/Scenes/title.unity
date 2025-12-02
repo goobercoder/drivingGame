@@ -1660,7 +1660,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c846b95f9c9b54895d7b80d35dd52b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputFieldObjectName: LapsAmount
   inputField: {fileID: 1535190449}
+  inputValue: 0
 --- !u!4 &1879873996
 Transform:
   m_ObjectHideFlags: 0
