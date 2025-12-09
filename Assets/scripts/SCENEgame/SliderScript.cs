@@ -4,6 +4,7 @@ using TMPro; // Required for TMP_Text
 
 public class SliderScript : MonoBehaviour
 {
+    public static SliderScript instance;
     public string sliderObjectName = "SliderObjectName"; // Name of the Slider GameObject
     public string textObjectName = "TextObjectName"; // Name of the TMP_Text GameObject
     
@@ -12,11 +13,7 @@ public class SliderScript : MonoBehaviour
 
     void Awake()
     {
-        // Find the Slider GameObject by name and then get the Slider component
-        
-
-        // Find the TMP_Text GameObject by name and then get the TMP_Text component
-        
+       
     }
 
     void Start()

@@ -10,15 +10,14 @@ public class WinManager : MonoBehaviour
     void Awake()
     {
         // Ensure only one instance exists
-        if (Instance == null)
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Destroy duplicates
+        }
+        else 
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // Persist between scenes
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject); // Destroy duplicates
-            return;
         }
 
     }
@@ -52,8 +51,25 @@ public class WinManager : MonoBehaviour
     private IEnumerator WaitAndReloadScene(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Application.Quit();  // Code dont work so this fix yay
+        SceneManager.LoadScene(sceneBuildIndex: 0);
     }
+    void OnEnable()
+{
+    SceneManager.sceneLoaded += OnSceneLoaded;
+}
+
+void OnDisable()
+{
+    SceneManager.sceneLoaded -= OnSceneLoaded;
+}
+
+void OnSceneLoaded(Scene s, LoadSceneMode mode)
+{
+    if (s.buildIndex == 1)  // if your GAME scene is index 1
+    {
+        gameEndDeclared = false;  // reset automatically
+    }
+}
 }
 
 

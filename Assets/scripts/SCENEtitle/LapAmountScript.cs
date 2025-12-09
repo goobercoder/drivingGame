@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;  // Don't forget to add this for SceneManager
 
 public class LapAmountScript : MonoBehaviour
 {
@@ -11,15 +12,15 @@ public class LapAmountScript : MonoBehaviour
     void Awake()
     {
         // Ensure only one instance exists
-        if (Instance == null)
+        if (Instance != null && Instance != this)
+        {
+            
+            Destroy(gameObject); // Destroy duplicates
+        }
+        else
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // Persist between scenes
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject); // Destroy duplicates
-            return;
         }
 
         
@@ -28,6 +29,7 @@ public class LapAmountScript : MonoBehaviour
     void Start()
 
     {
+        Debug.Log("IGNORE THE PROBLEM IT AINT ONE.");
         // Find the TMP_InputField by name if it's not set in the inspector
         if (inputField == null)
         {

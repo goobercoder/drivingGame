@@ -17,10 +17,14 @@ public class GameManager : MonoBehaviour
         // Ensure there's only one instance of GameManager and that it persists across scenes
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);  // Destroy duplicate instance
+            Destroy(gameObject);
         }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);  // Keep GameManager alive across scene loads
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
 
         // Register to the sceneLoaded event to handle reconnection of references
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -28,10 +32,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // Initialize lapToWin from another manager or script if needed
+        // Get value from LapAmountScript BEFORE destroying it
         lapsToWin = LapAmountScript.Instance.GetValue();
 
-        // Ensure that valueText is assigned via the inspector or fallback to find it by name
+        // Destroy LapAmountScript after reading the value
+        Destroy(LapAmountScript.Instance.gameObject);
+
+        // Set up UI text if not assigned
         if (valueText == null)
         {
             valueText = GameObject.Find("Laps")?.GetComponent<TMP_Text>();
@@ -41,51 +48,66 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+        
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Update the UI text with the player's current lap progress if playerCT exists
-        if (playerCT != null && valueText != null)
+        // Update is called once per frame
+        void Update()
         {
-            valueText.text = "Laps: " + playerCT.laps.ToString() + "/" + lapsToWin.ToString();
-        }
-    }
-
-    // This method is called when a new scene is loaded
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Ensure the player object is found by name ("cat") when the scene is loaded
-        playerObject = GameObject.Find("cat");
-        if (playerObject != null)
-        {
-            playerCT = playerObject.GetComponent<CheckPointTest>();
-        }
-        else
-        {
-            Debug.LogWarning("Player GameObject 'cat' not found in the scene.");
-        }
-
-        // Reassign valueText if it's not already assigned
-        if (valueText == null)
-        {
-            valueText = GameObject.Find("Laps")?.GetComponent<TMP_Text>();
-            if (valueText == null)
+            // Update the UI text with the player's current lap progress if playerCT exists
+            if (playerCT != null && valueText != null)
             {
-                Debug.LogError("Laps Text UI not found in the scene.");
+                valueText.text = "Laps: " + playerCT.laps.ToString() + "/" + lapsToWin.ToString();
             }
         }
 
-        // Update the UI text with the player's current lap progress
-        if (playerCT != null && valueText != null)
-        {
-            valueText.text = "Laps: " + playerCT.laps.ToString() + "/" + lapsToWin.ToString();
-        }
-    }
+        // This method is called when a new scene is loaded
+        
 
-    // Optionally, you can unsubscribe from the event in OnDestroy
-    void OnDestroy()
+void OnEnable()
+{
+    SceneManager.sceneLoaded += OnSceneLoaded;
+}
+
+void OnDisable()
+{
+    SceneManager.sceneLoaded -= OnSceneLoaded;
+}
+
+void OnSceneLoaded(Scene s, LoadSceneMode mode)
+{
+    if (s.buildIndex == 1)  // if your GAME scene is index 1
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        lapsToWin = LapAmountScript.Instance.GetValue();
+
+            // Destroy LapAmountScript after reading the value
+            Destroy(LapAmountScript.Instance.gameObject);
+        // Ensure the player object is found by name ("cat") when the scene is loaded
+            playerObject = GameObject.Find("cat");
+            if (playerObject != null)
+            {
+                playerCT = playerObject.GetComponent<CheckPointTest>();
+            }
+            else
+            {
+                Debug.LogWarning("Player GameObject 'cat' not found in the scene.");
+            }
+
+            // Reassign valueText if it's not already assigned
+            if (valueText == null)
+            {
+                valueText = GameObject.Find("Laps")?.GetComponent<TMP_Text>();
+                if (valueText == null)
+                {
+                    Debug.LogError("Laps Text UI not found in the scene.");
+                }
+            }
+
+            // Update the UI text with the player's current lap progress
+            if (playerCT != null && valueText != null)
+            {
+                valueText.text = "Laps: " + playerCT.laps.ToString() + "/" + lapsToWin.ToString();
+            }
     }
 }
+}
+
